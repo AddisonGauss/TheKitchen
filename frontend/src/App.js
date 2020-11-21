@@ -19,8 +19,8 @@ const App = () => {
         <Container>
           <Route exact path='/' component={HomeScreen} />
           <Route path='/recipe/:id' component={RecipeScreen} />
-          <Route path='/login' component={LoginScreen} />
-          <Route path='/register' component={RegisterScreen} />
+          <Route exact path='/login' component={LoginScreen} />
+          <Route exact path='/register' component={RegisterScreen} />
           <Route path='/profile' component={UserProfileScreen} />
           <Route path='/mylists' component={ListGroupsScreen} />
           <Route path='/group/:id' component={GroupScreen} />
