@@ -48,9 +48,6 @@ const RecipeScreen = ({ match, history }) => {
   const recipeReviewDelete = useSelector((state) => state.recipeReviewDelete)
   const { success: successDelete } = recipeReviewDelete
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
   useEffect(() => {
     dispatch(listRecipeDetails(id))
   }, [dispatch, match, success, successEdit, successDelete])
