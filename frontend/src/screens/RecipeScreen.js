@@ -48,12 +48,19 @@ const RecipeScreen = ({ match, history }) => {
   const recipeReviewDelete = useSelector((state) => state.recipeReviewDelete)
   const { success: successDelete } = recipeReviewDelete
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
     dispatch(listRecipeDetails(id))
   }, [dispatch, match, success, successEdit, successDelete])
 
   const addToFavoritesHandler = () => {
-    dispatch(addToFavorites(match.params.id))
+    if (userInfo) {
+      dispatch(addToFavorites(match.params.id))
+    } else {
+      history.push('/login')
+    }
   }
 
   const deleteReviewHandler = (reviewId) => {
