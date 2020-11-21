@@ -56,7 +56,7 @@ const RecipeScreen = ({ match, history }) => {
     if (userInfo) {
       dispatch(addToFavorites(match.params.id))
     } else {
-      history.push('/login')
+      history.push(`/login?redirect=/recipe/${recipe._id}`)
     }
   }
 
