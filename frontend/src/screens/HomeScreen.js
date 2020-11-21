@@ -12,7 +12,8 @@ import {
   USER_MY_FAVORITES_LIST_RESET,
 } from '../constants/userConstants'
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword
   const dispatch = useDispatch()
 
   const recipeList = useSelector((state) => state.recipeList)
@@ -21,8 +22,8 @@ const HomeScreen = () => {
     dispatch({ type: RECIPE_LIST_DETAILS_RESET })
     dispatch({ type: USER_MY_FAVORITES_LIST_RESET })
     dispatch({ type: USER_FAVORITES_ADD_RESET })
-    dispatch(listRecipes())
-  }, [dispatch])
+    dispatch(listRecipes(keyword))
+  }, [dispatch, keyword, match])
   return (
     <>
       <h1>Recipes</h1>

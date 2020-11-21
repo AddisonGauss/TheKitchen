@@ -6,7 +6,15 @@ import Review from '../models/recipeModel.js'
 // @route   GET /api/recipes
 // @access  Public
 const getRecipes = asyncHandler(async (req, res) => {
-  const recipes = await Recipe.find({})
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {}
+  const recipes = await Recipe.find({ ...keyword })
   res.json(recipes)
 })
 

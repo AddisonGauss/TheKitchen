@@ -27,6 +27,8 @@ const userSchema = mongoose.Schema(
         ref: 'Recipe',
       },
     ],
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
   {
     timestamps: true,
@@ -41,7 +43,7 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next()
   }
-  const salt = await bcrypt.genSalt(10)
+  const salt = await bcrypt.genSalt()
   this.password = await bcrypt.hash(this.password, salt)
 })
 

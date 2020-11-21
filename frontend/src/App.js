@@ -24,6 +24,7 @@ const App = () => {
           <Route path='/profile' component={UserProfileScreen} />
           <Route path='/mylists' component={ListGroupsScreen} />
           <Route path='/group/:id' component={GroupScreen} />
+          <Route exact path='/search/:keyword' component={HomeScreen} />
         </Container>
       </main>
       <Footer />

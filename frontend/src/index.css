@@ -24,7 +24,24 @@ h2 {
 h3 {
   padding-top: 0.5rem;
 }
-
+.navbar.bg-primary input[type='text'] {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
+  -webkit-box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
+  -moz-box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
+  border-radius: 25px;
+  color: #000000;
+  font-size: 0.875rem;
+  padding: 0.75rem 1.5rem;
+}
+.navbar.bg-primary input[type='text']:focus {
+  box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
+  -webkit-box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
+  -moz-box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
+}
+.navbar.bg-primary input[type='text']::placeholder {
+  color: #2196f3;
+}
 .rating span {
   margin: 0.1rem;
 }

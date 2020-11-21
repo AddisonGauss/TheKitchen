@@ -18,11 +18,11 @@ import {
   RECIPE_REVIEW_DELETE_FAIL,
 } from '../constants/recipeConstants'
 
-export const listRecipes = () => async (dispatch) => {
+export const listRecipes = (keyword = '') => async (dispatch) => {
   try {
     dispatch({ type: RECIPE_LIST_REQUEST })
 
-    const { data } = await axios.get('/api/recipes')
+    const { data } = await axios.get(`/api/recipes?keyword=${keyword}`)
 
     dispatch({
       type: RECIPE_LIST_SUCCESS,
