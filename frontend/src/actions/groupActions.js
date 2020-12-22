@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import {
   GROUP_DELETE_FAIL,
   GROUP_DELETE_REQUEST,
@@ -17,13 +17,19 @@ import {
   GROUP_UPDATE_FAIL,
   GROUP_UPDATE_REQUEST,
   GROUP_UPDATE_SUCCESS,
-} from '../constants/groupConstants'
+} from "../constants/groupConstants"
 
-export const listGroups = () => async (dispatch) => {
+export const listGroups = () => async (dispatch, getState) => {
   try {
     dispatch({ type: GROUP_LIST_REQUEST })
 
-    const { data } = await axios.get('/api/groups')
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get("/api/groups", config)
 
     dispatch({
       type: GROUP_LIST_SUCCESS,
@@ -40,11 +46,17 @@ export const listGroups = () => async (dispatch) => {
   }
 }
 
-export const listGroupDetails = (id) => async (dispatch) => {
+export const listGroupDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: GROUP_LIST_DETAILS_REQUEST })
 
-    const { data } = await axios.get(`/api/groups/${id}`)
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    }
+    const { data } = await axios.get(`/api/groups/${id}`, config)
 
     dispatch({
       type: GROUP_LIST_DETAILS_SUCCESS,
@@ -67,7 +79,7 @@ export const createGroup = (name) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
       },
     }
@@ -98,7 +110,7 @@ export const updateGroup = (groupId, recipeId) => async (
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
       },
     }

@@ -1,27 +1,31 @@
-import asyncHandler from 'express-async-handler'
-import Recipe from '../models/recipeModel.js'
-import userCreatedGroup from '../models/userCreatedGroupModel.js'
+import asyncHandler from "express-async-handler"
+import Recipe from "../models/recipeModel.js"
+import userCreatedGroup from "../models/userCreatedGroupModel.js"
 
-// @desc    Fetch all groups
+// @desc    Fetch all groups created by the user
 // @route   GET /api/groups
-// @access  Public
+// @access  Private
 const getGroups = asyncHandler(async (req, res) => {
-  const groups = await userCreatedGroup.find({})
+  const groups = await userCreatedGroup.find({ user: req.user })
   res.json(groups)
 })
 
 // @desc    Fetch single group
 // @route   GET /api/groups/:id
-// @access  Public
+// @access  Private
 const getGroupById = asyncHandler(async (req, res) => {
   const id = req.params.id
-  const group = await userCreatedGroup.findById(id).populate('recipes')
+  const group = await userCreatedGroup.findById(id).populate("recipes")
 
   if (group) {
-    res.json(group)
+    if (group.user.toString() !== req.user.id.toString()) {
+      throw new Error("You did not create this group")
+    } else {
+      res.json(group)
+    }
   } else {
     res.status(404)
-    throw new Error('Group not found')
+    throw new Error("Group not found")
   }
 })
 
@@ -34,7 +38,7 @@ const createGroup = asyncHandler(async (req, res) => {
   const group = new userCreatedGroup({
     name: name,
     user: req.user,
-    image: '/images/sample.jpg',
+    image: "/images/sample.jpg",
   })
 
   const createdGroup = await group.save()
@@ -53,7 +57,7 @@ const addRecipeToGroup = asyncHandler(async (req, res) => {
       group.recipes.find((recipe) => recipe.toString() === recipeId.toString())
     ) {
       res.status(404)
-      throw new Error('Recipe already in group')
+      throw new Error("Recipe already in group")
     } else {
       group.recipes.push(recipe)
       group.numRecipes = group.recipes.length
@@ -62,7 +66,7 @@ const addRecipeToGroup = asyncHandler(async (req, res) => {
     }
   } else {
     res.status(404)
-    throw new Error('Group/recipe not found')
+    throw new Error("Group/recipe not found")
   }
 })
 
@@ -73,10 +77,10 @@ const deleteGroup = asyncHandler(async (req, res) => {
   const group = await userCreatedGroup.findById(req.params.id)
   if (group) {
     await group.remove()
-    res.json({ message: 'Group removed' })
+    res.json({ message: "Group removed" })
   } else {
     res.status(404)
-    throw new Error('Group not found')
+    throw new Error("Group not found")
   }
 })
 
@@ -91,10 +95,10 @@ const deleteRecipeFromGroup = asyncHandler(async (req, res) => {
     )
     group.recipes = newGroupRecipes
     await group.save()
-    res.json({ message: 'Recipe removed' })
+    res.json({ message: "Recipe removed" })
   } else {
     res.status(404)
-    throw new Error('Group not found')
+    throw new Error("Group not found")
   }
 })
 

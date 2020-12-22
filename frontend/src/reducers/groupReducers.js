@@ -22,7 +22,7 @@ import {
   GROUP_RECIPE_DELETE_FAIL,
   GROUP_RECIPE_DELETE_SUCCESS,
   GROUP_RECIPE_DELETE_REQUEST,
-} from '../constants/groupConstants'
+} from "../constants/groupConstants"
 
 export const groupListReducer = (state = { groups: [] }, action) => {
   switch (action.type) {

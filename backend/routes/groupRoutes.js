@@ -1,4 +1,4 @@
-import express from 'express'
+import express from "express"
 const router = express.Router()
 import {
   getGroupById,
@@ -7,15 +7,15 @@ import {
   addRecipeToGroup,
   deleteGroup,
   deleteRecipeFromGroup,
-} from '../controllers/groupController.js'
-import { protect } from '../middleware/authMiddleware.js'
+} from "../controllers/groupController.js"
+import { protect } from "../middleware/authMiddleware.js"
 
-router.route('/').get(getGroups).post(protect, createGroup)
+router.route("/").get(protect, getGroups).post(protect, createGroup)
 router
-  .route('/:id')
-  .get(getGroupById)
+  .route("/:id")
+  .get(protect, getGroupById)
   .put(protect, addRecipeToGroup)
   .delete(protect, deleteGroup)
-router.route('/:id/recipes/:recipeId').delete(protect, deleteRecipeFromGroup)
+router.route("/:id/recipes/:recipeId").delete(protect, deleteRecipeFromGroup)
 
 export default router

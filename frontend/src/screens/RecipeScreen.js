@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-  ListGroupItem,
-} from 'react-bootstrap'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { deleteRecipeReview, listRecipeDetails } from '../actions/recipeActions'
-import { addToFavorites } from '../actions/userActions'
-import Rating from '../components/Rating'
-import ReviewModal from '../components/ReviewModal'
-import EditReviewModal from '../components/EditReviewModal'
-import { RECIPE_REVIEW_CREATE_RESET } from '../constants/recipeConstants'
-import { RECIPE_REVIEW_EDIT_RESET } from '../constants/recipeConstants'
+import React, { useEffect } from "react"
+import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap"
+import Loader from "../components/Loader"
+import Message from "../components/Message"
+import { deleteRecipeReview, listRecipeDetails } from "../actions/recipeActions"
+import { addToFavorites } from "../actions/userActions"
+import Rating from "../components/Rating"
+import ReviewModal from "../components/ReviewModal"
+import EditReviewModal from "../components/EditReviewModal"
+import { RECIPE_REVIEW_CREATE_RESET } from "../constants/recipeConstants"
+import { RECIPE_REVIEW_EDIT_RESET } from "../constants/recipeConstants"
 
 const RecipeScreen = ({ match, history }) => {
   const id = match.params.id
@@ -65,19 +56,19 @@ const RecipeScreen = ({ match, history }) => {
   }
   return (
     <>
-      <Link className='btn btn-light my-3' to='/'>
+      <Link className="btn btn-light my-3" to="/">
         Go Back
       </Link>
       {errorAddFavorites && (
-        <Message variant='danger'>{errorAddFavorites}</Message>
+        <Message variant="danger">{errorAddFavorites}</Message>
       )}
       {successAddFavorites && (
-        <Message variant='success'>Recipe added to favorites</Message>
+        <Message variant="success">Recipe added to favorites</Message>
       )}
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <Message variant="danger">{error}</Message>
       ) : (
         <>
           <Row>
@@ -85,19 +76,19 @@ const RecipeScreen = ({ match, history }) => {
               <Image fluid rounded src={recipe.image}></Image>
             </Col>
             <Col md={7}>
-              <ListGroup variant='flush'>
+              <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h3>{recipe.name}</h3>
 
                   <a href={`${recipe.url}`}>Link to original recipe here</a>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <div className='d-flex'>
+                  <div className="d-flex">
                     <Rating
                       value={recipe.rating}
                       text={`${recipe.numReviews} reviews`}
                     />
-                    <p className='ml-auto'>
+                    <p className="ml-auto">
                       Serves: {recipe.yield && recipe.yield}
                     </p>
                   </div>
@@ -110,11 +101,11 @@ const RecipeScreen = ({ match, history }) => {
             </Col>
             <Col md={1}>
               <Button
-                variant='outline-primary btn-sm'
+                variant="outline-primary btn-sm"
                 onClick={addToFavoritesHandler}
               >
                 <div>
-                  <i className='fas fa-heart fa-2x'></i>
+                  <i className="fas fa-heart fa-2x"></i>
                 </div>
                 Add to favorites
               </Button>
@@ -132,7 +123,7 @@ const RecipeScreen = ({ match, history }) => {
             </Col>
             <Col md={12}>
               <h3>Directions</h3>
-              <ListGroup variant='flush'>
+              <ListGroup variant="flush">
                 {recipe.instructions &&
                   recipe.instructions[0] &&
                   recipe.instructions[0].steps.map((step, index) => (
@@ -145,16 +136,16 @@ const RecipeScreen = ({ match, history }) => {
             <Col md={12}>
               <Col>
                 <Row>
-                  <h2 className='ml-3'>Reviews({recipe.numReviews})</h2>
+                  <h2 className="ml-3">Reviews({recipe.numReviews})</h2>
                   <Col>
                     {userInfo ? (
                       <ReviewModal recipeId={recipe._id} />
                     ) : (
-                      <Message variant='primary'>
-                        Please{' '}
+                      <Message variant="primary">
+                        Please{" "}
                         <Link to={`/login?redirect=/recipe/${recipe._id}`}>
                           sign in
-                        </Link>{' '}
+                        </Link>{" "}
                         to write a review
                       </Message>
                     )}
@@ -165,7 +156,7 @@ const RecipeScreen = ({ match, history }) => {
 
             {recipe.reviews.length === 0 ? (
               <Col md={12}>
-                <Message variant='primary'>Currently no reviews</Message>
+                <Message variant="primary">Currently no reviews</Message>
               </Col>
             ) : (
               <>
@@ -176,21 +167,21 @@ const RecipeScreen = ({ match, history }) => {
                     lg={4}
                     xl={3}
                     key={review._id}
-                    className='d-flex align-items-stretch'
+                    className="d-flex align-items-stretch"
                   >
-                    <Card className='mt-4' style={{ width: '18rem' }}>
+                    <Card className="mt-4" style={{ width: "18rem" }}>
                       <Card.Header>
                         <Row>
                           <h5>{review.name}</h5>
                           {userInfo && userInfo._id === review.user && (
-                            <div className='ml-auto'>
+                            <div className="ml-auto">
                               <EditReviewModal
                                 recipeId={recipe._id}
                                 review={review}
                               />
                               <Button
                                 onClick={() => deleteReviewHandler(review._id)}
-                                variant='outline-danger btn-sm'
+                                variant="outline-danger btn-sm"
                               >
                                 Delete
                               </Button>
@@ -205,7 +196,7 @@ const RecipeScreen = ({ match, history }) => {
                         </Row>
                       </Card.Header>
                       <Card.Body>
-                        <Card.Text as='h6'>
+                        <Card.Text as="h6">
                           {review.comment.substring(0, 100)}
                         </Card.Text>
                       </Card.Body>

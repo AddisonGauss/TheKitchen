@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react'
-import { Col, Image, Row } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import recipes from '../recipes'
-import Recipe from '../components/Recipe'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { listRecipes } from '../actions/recipeActions'
-import { RECIPE_LIST_DETAILS_RESET } from '../constants/recipeConstants'
+import React, { useEffect } from "react"
+import { Col, Row } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import Recipe from "../components/Recipe"
+import Message from "../components/Message"
+import Loader from "../components/Loader"
+import { listRecipes } from "../actions/recipeActions"
+import { RECIPE_LIST_DETAILS_RESET } from "../constants/recipeConstants"
 import {
   USER_FAVORITES_ADD_RESET,
   USER_MY_FAVORITES_LIST_RESET,
-} from '../constants/userConstants'
+} from "../constants/userConstants"
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -30,7 +29,7 @@ const HomeScreen = ({ match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {recipes.map((recipe) => (
@@ -40,7 +39,7 @@ const HomeScreen = ({ match }) => {
               md={6}
               lg={4}
               xl={3}
-              className='d-flex align-items-stretch'
+              className="d-flex align-items-stretch"
             >
               <Recipe recipe={recipe} />
             </Col>

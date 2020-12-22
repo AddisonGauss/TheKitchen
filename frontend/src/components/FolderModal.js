@@ -1,28 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-  Modal,
-  ToggleButton,
-  ButtonGroup,
-  ToggleButtonGroup,
-} from 'react-bootstrap'
-
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { createRecipeReview, editRecipeReview } from '../actions/recipeActions'
-import { createGroup, listGroups, updateGroup } from '../actions/groupActions'
-import { GROUP_LIST_CREATE_RESET } from '../constants/groupConstants'
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Button, Form, Modal } from "react-bootstrap"
+import Message from "../components/Message"
+import { createGroup, listGroups, updateGroup } from "../actions/groupActions"
+import { GROUP_LIST_CREATE_RESET } from "../constants/groupConstants"
 
 const FolderModal = ({ recipeId }) => {
-  const [newFolder, setNewFolder] = useState('')
+  const [newFolder, setNewFolder] = useState("")
   const [show, setShow] = useState(false)
   let folderNames = []
   const dispatch = useDispatch()
@@ -67,30 +51,30 @@ const FolderModal = ({ recipeId }) => {
 
   return (
     <>
-      <Button className='mt-auto' onClick={handleShow}>
+      <Button className="mt-auto" onClick={handleShow}>
         Add recipe to a folder
       </Button>
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop='static'
+        backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
           {errorCreate && <Message>{errorCreate}</Message>}
           <Modal.Title>Choose a folder</Modal.Title>
         </Modal.Header>
-        {errorGroups && <Message variant='danger'>{errorGroups}</Message>}
+        {errorGroups && <Message variant="danger">{errorGroups}</Message>}
         <Modal.Body>
           <Form>
-            <Form.Group controlId='groupCheckBox'>
+            <Form.Group controlId="groupCheckBox">
               {groups &&
                 groups.map((group) => (
                   <Form.Check
                     key={group._id}
                     id={group._id}
                     value={group._id}
-                    type='checkbox'
+                    type="checkbox"
                     label={group.name}
                     onChange={(e) => {
                       if (e.currentTarget.checked) {
@@ -108,25 +92,25 @@ const FolderModal = ({ recipeId }) => {
                 ))}
             </Form.Group>
 
-            <Form.Group className='mt-auto' controlId='newFolder'>
+            <Form.Group className="mt-auto" controlId="newFolder">
               <Form.Control
                 required
-                type='text'
+                type="text"
                 value={newFolder}
                 onChange={(e) => setNewFolder(e.target.value)}
-                placeholder='Add a folder...'
+                placeholder="Add a folder..."
               ></Form.Control>
-              <Button className='mt-2 btn-sm' onClick={createFolderHandler}>
+              <Button className="mt-2 btn-sm" onClick={createFolderHandler}>
                 Create Folder
               </Button>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button type='submit' onClick={submitHandler} variant='primary'>
+          <Button type="submit" onClick={submitHandler} variant="primary">
             Submit
           </Button>
         </Modal.Footer>

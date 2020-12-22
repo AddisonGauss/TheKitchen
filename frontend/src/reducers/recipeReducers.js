@@ -18,7 +18,7 @@ import {
   RECIPE_REVIEW_DELETE_SUCCESS,
   RECIPE_REVIEW_DELETE_FAIL,
   RECIPE_REVIEW_DELETE_RESET,
-} from '../constants/recipeConstants'
+} from "../constants/recipeConstants"
 
 export const recipeListReducer = (state = { recipes: [] }, action) => {
   switch (action.type) {

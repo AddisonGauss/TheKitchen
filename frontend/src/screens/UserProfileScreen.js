@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { LinkContainer } from 'react-router-bootstrap'
-import { getMyFavorites } from '../actions/userActions'
-import Recipe from '../components/Recipe'
-import { listGroups } from '../actions/groupActions'
+import React, { useEffect } from "react"
+import { Button, Row, Col } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import Message from "../components/Message"
+import Loader from "../components/Loader"
+import { LinkContainer } from "react-router-bootstrap"
+import { getMyFavorites } from "../actions/userActions"
+import Recipe from "../components/Recipe"
+import { listGroups } from "../actions/groupActions"
 const UserProfileScreen = () => {
-  const history = useHistory()
   const dispatch = useDispatch()
 
   const userMyFavoritesList = useSelector((state) => state.userMyFavoritesList)
   const { loading, error, favorites } = userMyFavoritesList
-
-  const groupList = useSelector((state) => state.groupList)
-  const {
-    loading: loadingGroups,
-    success: successGroups,
-    error: errorGroups,
-    groups,
-  } = groupList
-
-  const groupListCreate = useSelector((state) => state.groupListCreate)
-  const {
-    loading: loadingCreate,
-    success: successCreate,
-    error: errorCreate,
-  } = groupListCreate
 
   useEffect(() => {
     dispatch(getMyFavorites())
@@ -37,9 +20,9 @@ const UserProfileScreen = () => {
   return (
     <>
       <Row>
-        <Col className='text-left mb-3'>
-          <LinkContainer to='/mylists'>
-            <Button variant='outline-primary'>View My Created Folders</Button>
+        <Col className="text-left mb-3">
+          <LinkContainer to="/mylists">
+            <Button variant="outline-primary">View My Created Folders</Button>
           </LinkContainer>
         </Col>
       </Row>
@@ -47,7 +30,7 @@ const UserProfileScreen = () => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>{error}</Message>
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {favorites.map((recipe) => (
@@ -57,7 +40,7 @@ const UserProfileScreen = () => {
               md={6}
               lg={4}
               xl={3}
-              className='d-flex align-items-stretch'
+              className="d-flex align-items-stretch"
             >
               <Recipe recipe={recipe} groupType={true} />
             </Col>

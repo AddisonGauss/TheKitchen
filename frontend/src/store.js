@@ -1,19 +1,21 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { createStore, combineReducers, applyMiddleware } from "redux"
+import thunk from "redux-thunk"
+import { composeWithDevTools } from "redux-devtools-extension"
 import {
   recipeListReducer,
   recipeListDetailsReducer,
   recipeReviewCreateReducer,
   recipeReviewEditReducer,
   recipeReviewDeleteReducer,
-} from './reducers/recipeReducers'
+} from "./reducers/recipeReducers"
 import {
   userMyFavoritesListReducer,
   userLoginReducer,
   userRecipeFavoritesAddReducer,
   userRegisterReducer,
-} from './reducers/userReducers'
+  userForgotPasswordReducer,
+  userForgotPasswordResetReducer,
+} from "./reducers/userReducers"
 import {
   groupListCreateReducer,
   groupListDetailsReducer,
@@ -21,7 +23,7 @@ import {
   groupUpdateReducer,
   groupDeleteReducer,
   groupDeleteRecipeReducer,
-} from './reducers/groupReducers'
+} from "./reducers/groupReducers"
 const reducer = combineReducers({
   recipeList: recipeListReducer,
   recipeListDetails: recipeListDetailsReducer,
@@ -32,6 +34,8 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userRecipeFavoritesAdd: userRecipeFavoritesAddReducer,
   userMyFavoritesList: userMyFavoritesListReducer,
+  userForgotPassword: userForgotPasswordReducer,
+  userForgotPasswordReset: userForgotPasswordResetReducer,
   groupList: groupListReducer,
   groupListDetails: groupListDetailsReducer,
   groupListCreate: groupListCreateReducer,
@@ -40,8 +44,8 @@ const reducer = combineReducers({
   groupDeleteRecipe: groupDeleteRecipeReducer,
 })
 
-const userInfoFromStorage = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('userInfo'))
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
   : null
 
 const initialState = {
