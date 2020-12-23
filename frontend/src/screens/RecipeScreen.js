@@ -125,12 +125,19 @@ const RecipeScreen = ({ match, history }) => {
               <h3>Directions</h3>
               <ListGroup variant="flush">
                 {recipe.instructions &&
-                  recipe.instructions[0] &&
-                  recipe.instructions[0].steps.map((step, index) => (
-                    <ListGroup.Item key={index}>
-                      {index + 1}. {step}
-                    </ListGroup.Item>
-                  ))}
+                  recipe.instructions.map((steps, index) =>
+                    recipe.instructions[index].steps.map((step, index) => (
+                      <ListGroup.Item key={index}>
+                        {index + 1}. {step}
+                      </ListGroup.Item>
+                    ))
+                  )}
+                {/* // recipe.instructions[0] &&
+                  // recipe.instructions[0].steps.map((step, index) => (
+                  //   <ListGroup.Item key={index}>
+                  //     {index + 1}. {step}
+                  //   </ListGroup.Item>
+                  // ))} */}
               </ListGroup>
             </Col>
             <Col md={12}>
