@@ -21,6 +21,7 @@ import {
   groupListDetailsReducer,
   groupListReducer,
   groupUpdateReducer,
+  groupUpdateNameReducer,
   groupDeleteReducer,
   groupDeleteRecipeReducer,
 } from "./reducers/groupReducers"
@@ -40,6 +41,7 @@ const reducer = combineReducers({
   groupListDetails: groupListDetailsReducer,
   groupListCreate: groupListCreateReducer,
   groupUpdate: groupUpdateReducer,
+  groupUpdateName: groupUpdateNameReducer,
   groupDelete: groupDeleteReducer,
   groupDeleteRecipe: groupDeleteRecipeReducer,
 })

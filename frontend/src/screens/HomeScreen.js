@@ -6,10 +6,7 @@ import Message from "../components/Message"
 import Loader from "../components/Loader"
 import { listRecipes } from "../actions/recipeActions"
 import { RECIPE_LIST_DETAILS_RESET } from "../constants/recipeConstants"
-import {
-  USER_FAVORITES_ADD_RESET,
-  USER_MY_FAVORITES_LIST_RESET,
-} from "../constants/userConstants"
+import { USER_FAVORITES_ADD_RESET } from "../constants/userConstants"
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
@@ -19,7 +16,7 @@ const HomeScreen = ({ match }) => {
   const { loading, recipes, error } = recipeList
   useEffect(() => {
     dispatch({ type: RECIPE_LIST_DETAILS_RESET })
-    dispatch({ type: USER_MY_FAVORITES_LIST_RESET })
+
     dispatch({ type: USER_FAVORITES_ADD_RESET })
     dispatch(listRecipes(keyword))
   }, [dispatch, keyword, match])

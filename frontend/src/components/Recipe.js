@@ -7,9 +7,11 @@ const Recipe = ({ recipe, groupType }) => {
   return (
     <>
       <Card className="my-3 p-1 rounded">
-        <Link to={`/recipe/${recipe._id}`}>
-          <Card.Img variant="top" src={recipe.image} />
-        </Link>
+        <div className="card-top">
+          <Link to={`/recipe/${recipe._id}`}>
+            <Card.Img variant="top" src={recipe.image} />
+          </Link>
+        </div>
         <Card.Body className="d-flex flex-column">
           <Card.Text as="div">
             <Rating

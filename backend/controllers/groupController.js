@@ -70,6 +70,23 @@ const addRecipeToGroup = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Update Group Name
+// @route   PUT /api/groups/:id/updateName
+// @access  Private
+const updateGroupName = asyncHandler(async (req, res) => {
+  const group = await userCreatedGroup.findById(req.params.id)
+  const newGroupName = req.body.newGroupName
+
+  if (group) {
+    group.name = newGroupName
+    const updatedGroup = await group.save()
+    res.status(201).json(updatedGroup)
+  } else {
+    res.status(404)
+    throw new Error("Group not found")
+  }
+})
+
 // @desc    Delete Group
 // @route   DELETE /api/groups/:id
 // @access  Private
@@ -107,6 +124,7 @@ export {
   getGroupById,
   createGroup,
   addRecipeToGroup,
+  updateGroupName,
   deleteGroup,
   deleteRecipeFromGroup,
 }

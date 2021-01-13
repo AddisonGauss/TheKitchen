@@ -79,13 +79,11 @@ const FolderModal = ({ recipeId }) => {
                     onChange={(e) => {
                       if (e.currentTarget.checked) {
                         folderNames.push(e.currentTarget.value)
-                        //folder.push(e.currentTarget.value)
                       } else {
                         folderNames.splice(
                           folderNames.indexOf(e.currentTarget.value),
                           1
                         )
-                        //folder.splice(folder.indexOf(e.currentTarget.value), 1)
                       }
                     }}
                   />

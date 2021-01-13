@@ -5,6 +5,7 @@ import {
   getGroups,
   createGroup,
   addRecipeToGroup,
+  updateGroupName,
   deleteGroup,
   deleteRecipeFromGroup,
 } from "../controllers/groupController.js"
@@ -17,5 +18,6 @@ router
   .put(protect, addRecipeToGroup)
   .delete(protect, deleteGroup)
 router.route("/:id/recipes/:recipeId").delete(protect, deleteRecipeFromGroup)
+router.route("/:id/updateName").put(protect, updateGroupName)
 
 export default router

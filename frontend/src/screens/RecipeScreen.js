@@ -60,10 +60,16 @@ const RecipeScreen = ({ match, history }) => {
         Go Back
       </Link>
       {errorAddFavorites && (
-        <Message variant="danger">{errorAddFavorites}</Message>
+        <Message variant="danger">
+          {errorAddFavorites}{" "}
+          <Link to="/profile">Click here to view your favorites</Link>
+        </Message>
       )}
       {successAddFavorites && (
-        <Message variant="success">Recipe added to favorites</Message>
+        <Message variant="success">
+          Recipe added to favorites{" "}
+          <Link to="/profile">Click here to view your favorites</Link>
+        </Message>
       )}
       {loading ? (
         <Loader />

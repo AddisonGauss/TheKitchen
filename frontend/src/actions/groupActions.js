@@ -12,6 +12,9 @@ import {
   GROUP_LIST_FAIL,
   GROUP_LIST_REQUEST,
   GROUP_LIST_SUCCESS,
+  GROUP_NAME_UPDATE_FAIL,
+  GROUP_NAME_UPDATE_REQUEST,
+  GROUP_NAME_UPDATE_SUCCESS,
   GROUP_RECIPE_DELETE_REQUEST,
   GROUP_RECIPE_DELETE_SUCCESS,
   GROUP_UPDATE_FAIL,
@@ -128,6 +131,41 @@ export const updateGroup = (groupId, recipeId) => async (
   } catch (error) {
     dispatch({
       type: GROUP_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const updateGroupName = (groupId, newGroupName) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: GROUP_NAME_UPDATE_REQUEST })
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getState().userLogin.userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/groups/${groupId}/updateName`,
+      { newGroupName },
+      config
+    )
+
+    dispatch({
+      type: GROUP_NAME_UPDATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: GROUP_NAME_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

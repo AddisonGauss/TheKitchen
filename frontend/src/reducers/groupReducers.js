@@ -22,6 +22,10 @@ import {
   GROUP_RECIPE_DELETE_FAIL,
   GROUP_RECIPE_DELETE_SUCCESS,
   GROUP_RECIPE_DELETE_REQUEST,
+  GROUP_NAME_UPDATE_REQUEST,
+  GROUP_NAME_UPDATE_SUCCESS,
+  GROUP_NAME_UPDATE_FAIL,
+  GROUP_NAME_UPDATE_RESET,
 } from "../constants/groupConstants"
 
 export const groupListReducer = (state = { groups: [] }, action) => {
@@ -79,6 +83,21 @@ export const groupUpdateReducer = (state = { group: {} }, action) => {
     case GROUP_UPDATE_FAIL:
       return { loading: false, error: action.payload }
     case GROUP_UPDATE_RESET:
+      return { group: { recipes: [] } }
+    default:
+      return state
+  }
+}
+
+export const groupUpdateNameReducer = (state = { group: {} }, action) => {
+  switch (action.type) {
+    case GROUP_NAME_UPDATE_REQUEST:
+      return { loading: true }
+    case GROUP_NAME_UPDATE_SUCCESS:
+      return { loading: false, success: true, group: action.payload }
+    case GROUP_NAME_UPDATE_FAIL:
+      return { loading: false, error: action.payload }
+    case GROUP_NAME_UPDATE_RESET:
       return { group: { recipes: [] } }
     default:
       return state
