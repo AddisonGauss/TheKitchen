@@ -1,26 +1,42 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Button, Row, Col } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
 import Recipe from "./Recipe"
 import EditGroupNameModal from "../components/EditGroupNameModal"
-import {
-  listGroupDetails,
-  deleteRecipeFromGroup,
-} from "../actions/groupActions"
+import { deleteRecipeFromGroup, deleteGroup } from "../actions/groupActions"
 const GroupRecipes = ({ group }) => {
   const dispatch = useDispatch()
 
+  const history = useHistory()
+
   const deleteRecipeFromGroupHandler = (groupId, recipeId) => {
-    if (window.confirm("Are you sure?"))
+    if (
+      window.confirm(
+        `Are you sure you want to delete this recipe from ${group.name}?`
+      )
+    )
       dispatch(deleteRecipeFromGroup(groupId, recipeId))
+  }
+
+  const deleteGroupHandler = (groupId) => {
+    if (window.confirm(`Are you sure you want to delete ${group.name}?`)) {
+      dispatch(deleteGroup(groupId))
+      history.replace("/profile")
+    }
   }
 
   return (
     <>
-      <h2 className="text-center mt-5">{group.name}</h2>
-      <Row className="justify-content-center">
+      <h2 className="text-center mt-2">{group.name}</h2>
+      <Row className="justify-content-center mb-5">
         <EditGroupNameModal groupId={group._id} />
+        <Button
+          className="btn-danger m-2"
+          onClick={() => deleteGroupHandler(group._id)}
+        >
+          Delete Folder
+        </Button>
       </Row>
       <Row>
         {group &&

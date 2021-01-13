@@ -9,8 +9,6 @@ import { addToFavorites } from "../actions/userActions"
 import Rating from "../components/Rating"
 import ReviewModal from "../components/ReviewModal"
 import EditReviewModal from "../components/EditReviewModal"
-import { RECIPE_REVIEW_CREATE_RESET } from "../constants/recipeConstants"
-import { RECIPE_REVIEW_EDIT_RESET } from "../constants/recipeConstants"
 
 const RecipeScreen = ({ match, history }) => {
   const id = match.params.id
@@ -41,12 +39,13 @@ const RecipeScreen = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(listRecipeDetails(id))
-  }, [dispatch, match, success, successEdit, successDelete])
+  }, [dispatch, id, success, successEdit, successDelete])
 
   const addToFavoritesHandler = () => {
     if (userInfo) {
       dispatch(addToFavorites(match.params.id))
     } else {
+      //if user is not logged in, go to login page but once they login it will redirect to the recipe they wanted to add to favorites
       history.push(`/login?redirect=/recipe/${recipe._id}`)
     }
   }
@@ -138,12 +137,6 @@ const RecipeScreen = ({ match, history }) => {
                       </ListGroup.Item>
                     ))
                   )}
-                {/* // recipe.instructions[0] &&
-                  // recipe.instructions[0].steps.map((step, index) => (
-                  //   <ListGroup.Item key={index}>
-                  //     {index + 1}. {step}
-                  //   </ListGroup.Item>
-                  // ))} */}
               </ListGroup>
             </Col>
             <Col md={12}>

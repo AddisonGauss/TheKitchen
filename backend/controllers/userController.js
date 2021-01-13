@@ -105,10 +105,8 @@ const forgotPasswordReset = asyncHandler(async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email })
     if (!user) {
-      console.log("IN !USER")
       res.status(400)
       throw new Error("Email not found")
-      return res.status(400).json({ msg: "Email not found" })
     }
     let reset_token = await generateResetToken()
     user.resetPasswordToken = await reset_token
@@ -128,7 +126,6 @@ const forgotPasswordReset = asyncHandler(async (req, res) => {
 // @access  Private
 const checkUserTokenResetPassword = asyncHandler(async (req, res) => {
   try {
-    console.log("INSIDE CHECKUSERTOKEN")
     let user = await User.findOne({
       resetPasswordToken: req.params.token,
       resetPasswordExpires: { $gt: Date.now() },
@@ -138,10 +135,8 @@ const checkUserTokenResetPassword = asyncHandler(async (req, res) => {
         .status(400)
         .json({ msg: "Reset password token not found or has expired" })
     }
-    console.log("Sending token back from reset get")
     res.json({ token: req.params.token })
   } catch (err) {
-    console.log(err)
     return res.status(400).json({ msg: err })
   }
 })
@@ -151,11 +146,7 @@ const checkUserTokenResetPassword = asyncHandler(async (req, res) => {
 // @access  Private
 const resetUserPassword = asyncHandler(async (req, res) => {
   try {
-    console.log("INSIDE RESETUSERPASS")
-    console.log(req.body)
-    console.log(req.params.token)
     if (!req.body.password || !req.body.confirmPassword) {
-      console.log("INSIDE !req.body.password")
       return res.status(400).json({ msg: "Not all fields have been entered" })
     }
     if (req.body.password.length < 4) {
@@ -169,14 +160,12 @@ const resetUserPassword = asyncHandler(async (req, res) => {
     })
 
     if (!user) {
-      console.log("INSIDE !user")
       return res
         .status(400)
         .json({ msg: "Password token not found or has expired" })
     }
 
     if (req.body.password === req.body.confirmPassword) {
-      console.log("INSIDE PASS === CONFIRMPASS")
       user.password = req.body.password
       user.resetPasswordToken = undefined
       user.resetPasswordExpires = undefined
@@ -207,20 +196,17 @@ const resetUserPassword = asyncHandler(async (req, res) => {
       }
 
       await smtpTransport.sendMail(mailOptions)
-      console.log("mail sent")
       res.json(savedUser)
     } else {
       return res.status(400).json({ msg: "Passwords do not match" })
     }
   } catch (err) {
-    console.log(err)
     return res.status(400).json({ msg: err.message })
   }
 })
 
 const sendForgotPasswordEmail = async (req, user, reset_token) => {
   try {
-    console.log("inside sendforgotpassword email")
     var smtpTransport = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -251,10 +237,7 @@ const sendForgotPasswordEmail = async (req, user, reset_token) => {
     }
 
     await smtpTransport.sendMail(mailOptions)
-    console.log("mail sent")
   } catch (err) {
-    console.log("catch block")
-    console.log(err.message)
     res.json(err)
   }
 }

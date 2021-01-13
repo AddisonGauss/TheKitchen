@@ -33,10 +33,10 @@ const Header = ({ location }) => {
               <Navbar.Brand>TheKitchen</Navbar.Brand>
             </Nav.Link>
           </LinkContainer>
+          <Route render={({ history }) => <Searchbox history={history} />} />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
-            <Route render={({ history }) => <Searchbox history={history} />} />
             <Nav className="ml-auto" activeKey={location.pathname}>
               <LinkContainer exact to="/">
                 <Nav.Link>
@@ -78,7 +78,6 @@ const Header = ({ location }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      )}
     </header>
   )
 }

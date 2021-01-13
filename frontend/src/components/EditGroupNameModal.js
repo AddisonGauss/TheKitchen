@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Button, Form, Modal } from "react-bootstrap"
 import Message from "../components/Message"
@@ -11,12 +11,7 @@ const EditGroupNameModal = ({ groupId }) => {
   const dispatch = useDispatch()
 
   const groupUpdateName = useSelector((state) => state.groupUpdateName)
-  const {
-    loading: loadingGroupUpdateName,
-    success: successGroupUpdateName,
-    error: errorGroupUpdateName,
-    group: updatedGroup,
-  } = groupUpdateName
+  const { error: errorGroupUpdateName } = groupUpdateName
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)

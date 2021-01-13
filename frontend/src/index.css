@@ -25,10 +25,6 @@ h3 {
   padding-top: 0.5rem;
 }
 
-/* .card {
-  overflow: hidden;
-} */
-
 .card-top {
   overflow: hidden;
 }
@@ -41,6 +37,7 @@ h3 {
   transform: scale(1.2);
   opacity: 0.75;
 }
+
 .navbar.bg-primary input[type="text"] {
   background-color: #ffffff;
   box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
@@ -50,6 +47,8 @@ h3 {
   color: #000000;
   font-size: 0.875rem;
   padding: 0.75rem 1.5rem;
+  height: 80%;
+  width: 300px;
 }
 .navbar.bg-primary input[type="text"]:focus {
   box-shadow: 0 0 0 10px hsla(0, 0%, 0%, 0.5);
@@ -73,5 +72,37 @@ h3 {
 @media (min-width: 992px) {
   .card-img-top {
     height: 170px;
+  }
+}
+@media (max-width: 767px) {
+  .container {
+    position: relative;
+  }
+  .navbar .container {
+    display: inline-block;
+  }
+
+  .navbar-toggler-icon {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+  }
+  .nav-link {
+    padding: 0;
+    margin-bottom: 1em;
+  }
+  .navbar.bg-primary input[type="text"] {
+    width: 100%;
+  }
+  .search-form {
+    flex-flow: nowrap;
+  }
+}
+
+@media (max-width: 270px) {
+  .btn-block {
+    overflow: hidden;
+    font-size: 0.7em;
+    text-align: left;
   }
 }

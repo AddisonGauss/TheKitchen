@@ -9,6 +9,7 @@ const GroupName = ({ group, display, location }) => {
     <>
       <Button
         variant="outline-primary"
+        size="sm"
         active={groupName === group._id}
         onClick={() => display(group)}
         className="m-2 btn-block"

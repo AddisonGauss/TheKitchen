@@ -3,18 +3,13 @@ import { Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
-import { LinkContainer } from "react-router-bootstrap"
 import { getMyFavorites } from "../actions/userActions"
-import Recipe from "../components/Recipe"
 import { listGroups } from "../actions/groupActions"
 import GroupName from "../components/GroupName"
 import { useHistory } from "react-router-dom"
 import GroupRecipes from "../components/GroupRecipes"
 import Favorites from "../components/Favorites"
-import {
-  listGroupDetails,
-  deleteRecipeFromGroup,
-} from "../actions/groupActions"
+import { listGroupDetails } from "../actions/groupActions"
 
 const UserProfileScreen = ({ location }) => {
   const groupName = location.search
@@ -45,6 +40,13 @@ const UserProfileScreen = ({ location }) => {
     error: errorDeleteRecipe,
   } = groupDeleteRecipe
 
+  const groupDelete = useSelector((state) => state.groupDelete)
+  const {
+    loading: loadingGroupDelete,
+    success: successGroupDelete,
+    error: errorGroupDelete,
+  } = groupDelete
+
   const groupUpdateName = useSelector((state) => state.groupUpdateName)
   const {
     loading: loadingGroupUpdateName,
@@ -69,6 +71,7 @@ const UserProfileScreen = ({ location }) => {
     successGroupListDetails,
     successDeleteRecipe,
     successGroupUpdateName,
+    successGroupDelete,
   ])
 
   return (
@@ -78,20 +81,21 @@ const UserProfileScreen = ({ location }) => {
         loading ||
         loadingGroupList ||
         loadingGroupListDetails) && <Loader />}
-      <Col lg={8} className="m-auto">
+      <Col lg={8} sm={12} xs={12} className="m-auto">
         <Row>
-          <Col lg={3}>
+          <Col lg={3} sm={4} xs={6}>
             <Button
               active={groupName === "All Of My Favorites"}
               variant="outline-primary"
-              className="btn-block m-2"
+              className=" btn-block m-2"
               onClick={() => history.push(`/profile`)}
+              size="sm"
             >
               All Favorites
             </Button>
           </Col>
           {groups.map((group) => (
-            <Col key={group._id} lg={3}>
+            <Col key={group._id} lg={3} sm={4} xs={6}>
               <GroupName
                 key={group._id}
                 group={group}

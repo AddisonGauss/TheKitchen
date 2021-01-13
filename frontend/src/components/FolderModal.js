@@ -12,26 +12,17 @@ const FolderModal = ({ recipeId }) => {
   const dispatch = useDispatch()
 
   const groupList = useSelector((state) => state.groupList)
-  const {
-    loading: loadingGroups,
-    success: successGroups,
-    error: errorGroups,
-    groups,
-  } = groupList
+  const { error: errorGroups, groups } = groupList
 
   const groupListCreate = useSelector((state) => state.groupListCreate)
-  const {
-    loading: loadingCreate,
-    success: successCreate,
-    error: errorCreate,
-  } = groupListCreate
+  const { success: successCreate, error: errorCreate } = groupListCreate
 
   useEffect(() => {
     if (successCreate && show) {
       dispatch(listGroups())
       dispatch({ type: GROUP_LIST_CREATE_RESET })
     }
-  }, [successCreate])
+  }, [dispatch, successCreate])
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)

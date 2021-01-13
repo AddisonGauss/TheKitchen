@@ -16,11 +16,7 @@ const EditReviewModal = ({ recipeId, review }) => {
   const dispatch = useDispatch()
 
   const recipeReviewEdit = useSelector((state) => state.recipeReviewEdit)
-  const {
-    loading: loadingEdit,
-    success: successEdit,
-    error: errorEdit,
-  } = recipeReviewEdit
+  const { success: successEdit, error: errorEdit } = recipeReviewEdit
 
   const handleClose = () => {
     dispatch({ type: RECIPE_REVIEW_CREATE_RESET })

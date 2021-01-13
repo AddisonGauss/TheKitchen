@@ -1,6 +1,6 @@
-import asyncHandler from 'express-async-handler'
-import Recipe from '../models/recipeModel.js'
-import Review from '../models/recipeModel.js'
+import asyncHandler from "express-async-handler"
+import Recipe from "../models/recipeModel.js"
+import Review from "../models/recipeModel.js"
 
 // @desc    Fetch all recipes
 // @route   GET /api/recipes
@@ -10,7 +10,7 @@ const getRecipes = asyncHandler(async (req, res) => {
     ? {
         name: {
           $regex: req.query.keyword,
-          $options: 'i',
+          $options: "i",
         },
       }
     : {}
@@ -29,7 +29,7 @@ const getRecipeById = asyncHandler(async (req, res) => {
     res.json(recipe)
   } else {
     res.status(404)
-    throw new Error('Recipe not found')
+    throw new Error("Recipe not found")
   }
 })
 
@@ -47,10 +47,9 @@ const createRecipeReview = asyncHandler(async (req, res) => {
 
     if (alreadyReviewed) {
       res.status(400)
-      throw new Error('You have already reviewed this product')
+      throw new Error("You have already reviewed this product")
     }
 
-    console.log(req.user)
     const review = {
       name: req.user.name,
       comment: comment,
@@ -66,10 +65,10 @@ const createRecipeReview = asyncHandler(async (req, res) => {
       }, 0) / recipe.reviews.length
 
     await recipe.save()
-    res.status(201).json({ message: 'Review added' })
+    res.status(201).json({ message: "Review added" })
   } else {
     res.status(404)
-    throw new Error('Recipe not found')
+    throw new Error("Recipe not found")
   }
 })
 
@@ -77,7 +76,6 @@ const createRecipeReview = asyncHandler(async (req, res) => {
 // @route   PUT /api/recipes/:id/reviews/:reviewId
 // @access  Private
 const updateRecipeReview = asyncHandler(async (req, res) => {
-  console.log('hit edit')
   const review = req.body
 
   const recipe = await Recipe.findById(req.params.id)
@@ -89,10 +87,10 @@ const updateRecipeReview = asyncHandler(async (req, res) => {
         return item.rating + acc
       }, 0) / recipe.numReviews
     await recipe.save()
-    res.status(201).json({ message: 'Review updated' })
+    res.status(201).json({ message: "Review updated" })
   } else {
     res.status(404)
-    throw new Error('Recipe not found')
+    throw new Error("Recipe not found")
   }
 })
 
@@ -104,10 +102,10 @@ const deleteRecipeReview = asyncHandler(async (req, res) => {
   if (recipe) {
     await recipe.reviews.id(req.params.reviewId).remove()
     await recipe.save()
-    res.json({ message: 'Review Deleted' })
+    res.json({ message: "Review Deleted" })
   } else {
     res.status(404)
-    throw new Error('Recipe not found')
+    throw new Error("Recipe not found")
   }
 })
 
