@@ -34,14 +34,11 @@ const getGroupById = asyncHandler(async (req, res) => {
 // @access  Private
 const createGroup = asyncHandler(async (req, res) => {
   const { name } = req.body
-  console.log(name)
   const group = new userCreatedGroup({
     name: name,
     user: req.user,
     image: "/images/sample.jpg",
   })
-
-  console.log(group)
   const createdGroup = await group.save()
   res.status(201).json(createdGroup)
 })
