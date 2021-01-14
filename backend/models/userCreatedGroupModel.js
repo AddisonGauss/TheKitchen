@@ -1,14 +1,13 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
 const userCreatedGroupSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User',
+    ref: "User",
   },
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   image: {
     type: String,
@@ -21,7 +20,7 @@ const userCreatedGroupSchema = mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'Recipe',
+      ref: "Recipe",
     },
   ],
   numRecipes: {
@@ -32,7 +31,7 @@ const userCreatedGroupSchema = mongoose.Schema({
 })
 
 const UserCreatedGroup = mongoose.model(
-  'UserCreatedGroup',
+  "UserCreatedGroup",
   userCreatedGroupSchema
 )
 

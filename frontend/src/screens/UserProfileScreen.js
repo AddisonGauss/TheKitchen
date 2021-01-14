@@ -81,15 +81,15 @@ const UserProfileScreen = ({ location }) => {
         loading ||
         loadingGroupList ||
         loadingGroupListDetails) && <Loader />}
-      <Col lg={8} sm={12} xs={12} className="m-auto">
+      <Col lg={10} sm={12} xs={12} className="m-auto">
         <Row>
           <Col lg={3} sm={4} xs={6}>
             <Button
+              size="sm"
               active={groupName === "All Of My Favorites"}
               variant="outline-primary"
               className=" btn-block m-2"
               onClick={() => history.push(`/profile`)}
-              size="sm"
             >
               All Favorites
             </Button>
