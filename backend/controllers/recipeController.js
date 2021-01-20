@@ -6,7 +6,6 @@ import Review from "../models/recipeModel.js"
 // @route   GET /api/recipes
 // @access  Public
 const getRecipes = asyncHandler(async (req, res) => {
-  console.log(req.ip)
   const keyword = req.query.keyword
     ? {
         name: {
