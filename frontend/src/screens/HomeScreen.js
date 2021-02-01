@@ -16,7 +16,6 @@ const HomeScreen = ({ match }) => {
   const { loading, recipes, error } = recipeList
   useEffect(() => {
     dispatch({ type: RECIPE_LIST_DETAILS_RESET })
-
     dispatch({ type: USER_FAVORITES_ADD_RESET })
     dispatch(listRecipes(keyword))
   }, [dispatch, keyword, match])

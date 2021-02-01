@@ -6,6 +6,7 @@ import Message from "../components/Message"
 import Loader from "../components/Loader"
 import FormContainer from "../components/FormContainer"
 import { register } from "../actions/userActions"
+import { USER_REGISTER_RESET } from "../constants/userConstants"
 
 const RegisterScreen = ({ location }) => {
   const [name, setName] = useState("")
@@ -30,6 +31,7 @@ const RegisterScreen = ({ location }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
+    dispatch({ type: USER_REGISTER_RESET })
     if (password !== confirmPassword) {
       setMessage("Passwords do not match")
     } else {
